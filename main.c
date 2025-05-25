@@ -69,7 +69,7 @@ char* longestNiceSubString(char* s){
 }
 
 void main(){
-    char* s = "YazaAay";
+    char* s = "c";
     printf( "String em teste: %s", s );
 
     printf( "\nNiceString mais longe: %s", longestNiceSubString(s) );
