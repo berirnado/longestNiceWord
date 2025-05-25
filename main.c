@@ -3,24 +3,24 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
-//Função que vai percorrer cada letra a partir de um endereço informado, pelo numero de letras informado
-//o endereço informado vai ser o inicio da substring
-//o numero de letras vai ser o limite da substring
-//para cada letra, vai entrar em um for procurando seu par
-bool isNiceSubStrig(char* str, int stringSize){
-    //for que itera por cada letra 
-    for(int i = 0; i < stringSize; i++){
+//Função que vai percorrer cada letra de uma substring informada e procurar um par para ela
+//para cada letra, vai entrar em um while procurando seu par.
+//se não for encontrado um par para alguma letra da substring, ela não é nice e retorna false
+bool isNiceSubStrig(char* str){
+    int i = 0;
+    while(str[i] != '\0'){
+        int j = 0;
         bool matchFound = false;
 
-        for(int j = 0; j < stringSize; j++){
-            //pega letra x da substring e procura por um par pra ela em cada casa da substring
+        //pega letra x da substring e procura por um par pra ela em cada casa da substring
+        while(str[j] != '\0'){
             if(str[i] == (str[j] + 32) || str[i] == (str[j] - 32)){
                 matchFound = true;
             }
+            j++;
         }
-
-        //caso nao encontre o par de apenas uma das letras já era
         if(!matchFound) return false;
+        i++;
     }
 
     //se chegou aqui é pq encontrou um par para todas as letras da substring, configurando niceString
@@ -49,7 +49,7 @@ char* longestNiceSubString(char* s){
 
             //testa se a subString em questão é niceString
             //se for uma niceString e seu tamanho for maior do que o maior tamanho de nicestring já registrado
-            if(isNiceSubStrig(substring, subStringSize) && subStringSize > longestSize){
+            if(isNiceSubStrig(substring) && subStringSize > longestSize){
                 //libera antigo maior niceString
                 if(longestSubString != NULL) free(longestSubString);
 
@@ -67,8 +67,8 @@ char* longestNiceSubString(char* s){
 }
 
 void main(){
-    char* s = "c";
+    char* s = "YazaAay";
     printf("String em teste: %s", s);
 
-    printf("\n%s", longestNiceSubString(s));
+    printf("\nNiceString mais longe: %s", longestNiceSubString(s));
 }
